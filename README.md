@@ -2,14 +2,20 @@
 
 ## Setting up the virtual environment
 
-To create a [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) virtual environment:
+Note that currently all code is supported to run on Python 3.8, 3.9 and 3.10.
 
-    $ conda env create -f environment.yml
+To create a virtual environment:
+
+    $ python -m venv env
 
 To activate the environment:
 
-    $ conda activate het-ind
+    $ source env/bin/activate
 
+To install the specific versions of all libraries:
+
+    $ python -m pip install -r requirements.txt
+    
 ## Basic example
 
 to run, execute the following in the terminal with your desired population and weight as the terminal arguments. 
