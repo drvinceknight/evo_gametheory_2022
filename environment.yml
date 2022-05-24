@@ -1,0 +1,13 @@
+name: het-ind
+channels:
+  - defaults
+dependencies:
+  - matplotlib=3.5.1
+  - numpy=1.22.3
+  - pandas=1.4.2
+  - pip=21.2.4
+  - python=3.9.12
+  - scipy=1.7.3
+  - dask=2022.5.0
+  - pip:
+    - axelrod==4.12.0
