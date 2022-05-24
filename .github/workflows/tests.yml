@@ -14,7 +14,7 @@ jobs:
     - name: Install conda and activate environment
       uses: conda-incubator/setup-miniconda@v2.0.0
       with:
-        environment-file: environment.yml
+        environment-file: ./environment.yml
         activate-environment: het-ind
 
     - name: check format
