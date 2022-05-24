@@ -21,16 +21,16 @@ jobs:
 
     - name: update pip
       run: |
-        pip install --upgrade pip
+        python -m pip install --upgrade pip
 
     - name: install requirements
       run: |
-        pip install -r requirements.txt
+        python -m pip install -r requirements.txt
 
     - name: run tests
       run: |
-        pytest .
+        python -m pytest .
 
     - name: check format
       run: |
-        black --check .
+        python -m black --check .
