@@ -1,5 +1,17 @@
 # Quick Tutorial
 
+## Setting up the virtual environment
+
+To create a [`conda`](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html) virtual environment:
+
+    $ conda env create -f environment.yml
+
+To activate the environment:
+
+    $ conda activate het-ind
+
+## Basic example
+
 to run, execute the following in the terminal with your desired population and weight as the terminal arguments. 
 
 e.g. `python main.py normal pareto` will run a simulation with a population where the mass is normally distribution with $\mu = 5$ and $\sigma = 12.5$ and weight follows a pareto distribution with $\alpha = 1$ and $m = 1/10$. Of course, these values can be changedin the `vars.py` file.
