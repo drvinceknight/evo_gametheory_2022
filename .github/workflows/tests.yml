@@ -33,5 +33,4 @@ jobs:
 
     - name: check format
       run: |
-        python -m pip install black
         python -m black --check .
