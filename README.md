@@ -16,6 +16,13 @@ To install the specific versions of all libraries:
 
     $ python -m pip install -r requirements.txt
     
+## Testing
+
+All code is formatted using [`black`](https://github.com/psf/black). To check
+that all code is formatted correctly:
+
+    $ python -m black .
+
 ## Basic example
 
 to run, execute the following in the terminal with your desired population and weight as the terminal arguments. 
