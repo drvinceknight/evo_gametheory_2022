@@ -13,10 +13,14 @@ outcomes = []
 count_population = 0
 
 
-def main(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight ):
+def main(
+    mass_distribution_name,
+    independence_distribution_name,
+    mass_weight,
+    independence_weight,
+):
     global outcomes
     global count_population
-
 
     if mass_distribution_name not in list(distributions_mass.keys()):
         print(f"The population distribution '{mass_distribution_name}' does not exist.")
@@ -28,7 +32,9 @@ def main(mass_distribution_name, independence_distribution_name, mass_weight, in
         return False
 
     if independence_distribution_name not in list(distributions_independence.keys()):
-        print(f"The population distribution '{independence_distribution_name}' does not exist.")
+        print(
+            f"The population distribution '{independence_distribution_name}' does not exist."
+        )
         print(
             "Either create the distribution in the vars.py file, or choose from the following:"
         )
@@ -50,16 +56,33 @@ def main(mass_distribution_name, independence_distribution_name, mass_weight, in
         set_PLAYER_heterogeneity(
             PLAYERS,
             distributions_mass[mass_distribution_name][count_population],
-            distributions_independence[independence_distribution_name][count_population],
+            distributions_independence[independence_distribution_name][
+                count_population
+            ],
         )
-        save_population_setup(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight)
+        save_population_setup(
+            mass_distribution_name,
+            independence_distribution_name,
+            mass_weight,
+            independence_weight,
+        )
 
         # save the mass and independence plots
-        save_initialized_plot(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight)
+        save_initialized_plot(
+            mass_distribution_name,
+            independence_distribution_name,
+            mass_weight,
+            independence_weight,
+        )
 
         # the simulation record
         if count_population == 0:
-            print_simulation_record(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight)
+            print_simulation_record(
+                mass_distribution_name,
+                independence_distribution_name,
+                mass_weight,
+                independence_weight,
+            )
 
         # loop over seeds and run simulation
         for _ in range(len(SEEDS)):
@@ -155,7 +178,12 @@ def set_PLAYER_heterogeneity(
         setattr(PLAYER, "independence", independence)
 
 
-def save_initialized_plot(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight):
+def save_initialized_plot(
+    mass_distribution_name,
+    independence_distribution_name,
+    mass_weight,
+    independence_weight,
+):
     # save the mass and independence plot
     plt.hist(distributions_mass[mass_distribution_name][count_population])
     plt.savefig(
@@ -167,7 +195,9 @@ def save_initialized_plot(mass_distribution_name, independence_distribution_name
         + ".pdf"
     )
     plt.clf()
-    plt.hist(distributions_independence[independence_distribution_name][count_population])
+    plt.hist(
+        distributions_independence[independence_distribution_name][count_population]
+    )
     plt.savefig(
         "results/figures/independence/"
         + str(independence_distribution_name)
@@ -182,7 +212,12 @@ def save_initialized_plot(mass_distribution_name, independence_distribution_name
     )
 
 
-def save_population_setup(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight):
+def save_population_setup(
+    mass_distribution_name,
+    independence_distribution_name,
+    mass_weight,
+    independence_weight,
+):
     data = {
         "player_id": [player.id for player in PLAYERS],
         "player_strategy": [player for player in PLAYERS],
@@ -206,7 +241,12 @@ def save_population_setup(mass_distribution_name, independence_distribution_name
     print("Population setup saved.")
 
 
-def print_simulation_record(mass_distribution_name, independence_distribution_name, mass_weight, independence_weight):
+def print_simulation_record(
+    mass_distribution_name,
+    independence_distribution_name,
+    mass_weight,
+    independence_weight,
+):
     print("-" * 75)
     print("\tStarting simulations with the following parameters:")
     print(f"\tMax rounds: {MAX_ROUNDS}")
@@ -229,8 +269,9 @@ def print_simulation_record(mass_distribution_name, independence_distribution_na
 class massBasedMatch(axl.Match):
     """Axelrod Match object with a modified final score function to enable mass to influence the final score as a multiplier"""
 
-    def __init__(self, players, turns, seed, noise, mass_weight,
-            independence_weight, **kwargs):
+    def __init__(
+        self, players, turns, seed, noise, mass_weight, independence_weight, **kwargs
+    ):
         super().__init__(players=players, turns=turns, seed=seed, noise=noise, **kwargs)
         self.mass_weight, self.independence_weight = mass_weight, independence_weight
 
@@ -250,31 +291,35 @@ class massBasedMatch(axl.Match):
 class massBasedMoranProcess(axl.MoranProcess):
     """Axelrod MoranProcess class"""
 
-    def __init__(self,
-                 players,
-                 turns,
-                 seed,
-                 mutation_rate,
-                 noise,
-                 mass_weight,
-                 independence_weight,
-                 mass_distribution_name,
-                 independence_distribution_name,
-                 ):
-
+    def __init__(
+        self,
+        players,
+        turns,
+        seed,
+        mutation_rate,
+        noise,
+        mass_weight,
+        independence_weight,
+        mass_distribution_name,
+        independence_distribution_name,
+    ):
         class MatchClass(massBasedMatch):
             def __init__(self, *args, **kwargs):
-                super().__init__(*args, mass_weight=mass_weight,
-                        independence_weight=independence_weight, **kwargs)
+                super().__init__(
+                    *args,
+                    mass_weight=mass_weight,
+                    independence_weight=independence_weight,
+                    **kwargs,
+                )
 
         super().__init__(
-                 players=players,
-                 match_class=MatchClass,
-                 turns=turns,
-                 seed=seed,
-                 mutation_rate=mutation_rate,
-                 noise=noise,
-                )
+            players=players,
+            match_class=MatchClass,
+            turns=turns,
+            seed=seed,
+            mutation_rate=mutation_rate,
+            noise=noise,
+        )
         self.mass_distribution_name = mass_distribution_name
         self.independence_distribution_name = independence_distribution_name
 
@@ -282,7 +327,9 @@ class massBasedMoranProcess(axl.MoranProcess):
         set_PLAYER_heterogeneity(
             self.players,
             distributions_mass[self.mass_distribution_name][count_population],
-            distributions_independence[self.independence_distribution_name][count_population],
+            distributions_independence[self.independence_distribution_name][
+                count_population
+            ],
         )
         super().__next__()
         return self
@@ -293,5 +340,10 @@ if __name__ == "__main__":
     if len(sys.argv) < 5:
         print("You have not inputted all necessary terminal arguments.")
     else:
-        mass_distribution_name, independence_distribution_name, mass_weight, independence_weight = sys.argv[1:]
+        (
+            mass_distribution_name,
+            independence_distribution_name,
+            mass_weight,
+            independence_weight,
+        ) = sys.argv[1:]
         main(mass_distribution_name)

@@ -40,7 +40,7 @@ def test_massBasedMatch():
     )
     match.play()
     match.final_score_per_turn()
-    assert [{'CD': 7, 'DD': 7, 'DC': 6}] == main.outcomes
+    assert [{"CD": 7, "DD": 7, "DC": 6}] == main.outcomes
     players = [axl.TitForTat(), axl.Alternator()]
     players[0].mass = 5
     players[1].mass = 3
@@ -57,7 +57,7 @@ def test_massBasedMatch():
     match.play()
     match.final_score_per_turn()
     assert len(main.outcomes) == 2
-    assert {'CC': 2, 'CD': 8, 'DD': 1, 'DC': 9} == main.outcomes[1]
+    assert {"CC": 2, "CD": 8, "DD": 1, "DC": 9} == main.outcomes[1]
 
 
 def test_massBasedMoranProcess():
@@ -79,7 +79,7 @@ def test_massBasedMoranProcess():
         independence_weight=0.2,
         mass_distribution_name="normal",
         independence_distribution_name="pareto",
-        mutation_rate=.1,
+        mutation_rate=0.1,
     )
     next(mp)
     assert len(main.outcomes) == 3
