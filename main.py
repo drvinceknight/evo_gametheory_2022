@@ -353,7 +353,11 @@ if __name__ == "__main__":
             for repetition in range(repetitions):
                 strategies = random.sample(axl.strategies, 4)
                 number_of_players = 10
-                players = [player() for player in range(number_of_players) for player in strategies]
+                players = [
+                    player()
+                    for player in range(number_of_players)
+                    for player in strategies
+                ]
                 main(mass_distribution_name, players=players)
         else:
             main(mass_distribution_name)
