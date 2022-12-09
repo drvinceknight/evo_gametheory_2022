@@ -88,16 +88,13 @@ note that the weight $w$ has no effect when mass $m$ is constant.
 
 The following strategies are by default generated in the population as included in `axelrod.basic_strategies`:
 
-- Alternator
-- Anti Tit For Tat
-- Bully
-- Cooperator
-- Cycler DC
 - Defector
-- Suspicious Tit For Tat
-- Tit For Tat
-- Win-Shift Lose-Stay: D
-- Win-Stay Lose-Shift
+- TitForTat
+- GTFT
+- Cooperator
+
+It is possible to call the experiments with `--explore` as an argument which
+will randomly select strategies from the axelrod library.`
 
 ## Analysis
 

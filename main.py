@@ -4,6 +4,7 @@ import axelrod as axl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import random
 from collections import Counter
 from math import comb
 from vars import *
@@ -18,6 +19,7 @@ def main(
     independence_distribution_name,
     mass_weight,
     independence_weight,
+    players=PLAYERS,
 ):
     global outcomes
     global count_population
@@ -346,4 +348,16 @@ if __name__ == "__main__":
             mass_weight,
             independence_weight,
         ) = sys.argv[1:]
-        main(mass_distribution_name)
+        if "--explore" in sys.argv:
+            repetitions = 50
+            for repetition in range(repetitions):
+                strategies = random.sample(axl.strategies, 4)
+                number_of_players = 10
+                players = [
+                    player()
+                    for player in range(number_of_players)
+                    for player in strategies
+                ]
+                main(mass_distribution_name, players=players)
+        else:
+            main(mass_distribution_name)
